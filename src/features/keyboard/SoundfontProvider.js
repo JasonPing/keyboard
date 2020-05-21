@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Soundfont from "soundfont-player";
+
 import {
   loadInstrumentStart,
   loadInstrumentSuccess,
@@ -17,23 +18,23 @@ const SoundfontProvider = (props) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const loadInstrument = (instrumentName) => {
-      // Re-trigger loading state
-      dispatch(loadInstrumentStart());
-      Soundfont.instrument(props.audioContext, instrumentName, {
-        format: props.format,
-        soundfont: props.soundfont,
-        nameToUrl: (name, soundfont, format) => {
-          return `${props.hostname}/${soundfont}/${name}-${format}.js`;
-        },
-      }).then((instrument) => {
-        setInstrument(instrument);
-        dispatch(loadInstrumentSuccess());
-      });
-    };
-
     loadInstrument(props.instrumentName);
   }, [props.instrumentName]);
+
+  const loadInstrument = (instrumentName) => {
+    // Re-trigger loading state
+    dispatch(loadInstrumentStart());
+    Soundfont.instrument(props.audioContext, instrumentName, {
+      format: props.format,
+      soundfont: props.soundfont,
+      nameToUrl: (name, soundfont, format) => {
+        return `${props.hostname}/${soundfont}/${name}-${format}.js`;
+      },
+    }).then((instrument) => {
+      setInstrument(instrument);
+      dispatch(loadInstrumentSuccess());
+    });
+  };
 
   const playNote = (midiNumber) => {
     props.audioContext.resume().then(() => {
@@ -53,7 +54,7 @@ const SoundfontProvider = (props) => {
       }
       const audioNode = activeAudioNodes[midiNumber];
       audioNode.stop();
-      dispatch(clearActiveAudioNodes());
+      dispatch(clearActiveAudioNodes(midiNumber));
     });
   };
   const stopAllNotes = () => {

@@ -5,7 +5,7 @@ import { Keyboard } from "../features/keyboard/Keyboard";
 const MainPage = () => {
   return (
     <div className="App">
-      <Counter />
+      {/* <Counter /> */}
       <Keyboard />
     </div>
   );
