@@ -3,8 +3,13 @@ import { createSlice } from "@reduxjs/toolkit";
 export const keyboardSlice = createSlice({
   name: "keyboard",
   initialState: {
-    instruments: [],
-    activeAudioNodes: {},
+    audioContext: new (window.AudioContext || window.webkitAudioContext)(),
+    soundfontHostname: "https://d1pzp51pvbm36p.cloudfront.net",
+    soundfont: "FluidR3_GM",
+    instrumentName: "acoustic_grand_piano",
+    format: "mp3",
+    instrument: {},
+    notesPlaying: {},
     isLoading: false,
     hasError: false,
     noteRange: {
@@ -17,22 +22,23 @@ export const keyboardSlice = createSlice({
       state.isLoading = true;
       state.hasError = false;
     },
-    loadInstrumentSuccess: (state) => {
+    loadInstrumentSuccess: (state, action) => {
       state.isLoading = false;
       state.hasError = false;
+      state.instrument = { ...action.payload };
     },
     loadInstrumentFailure: (state) => {
       state.hasError = true;
-      state.isLoading = false;
+      state.isLoading = !state.isLoading;
     },
     updateActiveAudioNodes: (state, action) => {
-      state.activeAudioNodes = { ...state.activeAudioNodes, ...action.payload };
+      state.notesPlaying = { ...state.notesPlaying, ...action.payload };
     },
     clearActiveAudioNodes: (state, action) => {
-      delete state.activeAudioNodes[action.payload];
+      delete state.notesPlaying[action.payload];
     },
     clearAllNodes: (state) => {
-      state.activeAudioNodes = {};
+      state.notesPlaying = {};
     },
     updateNoteRange: (state, action) => {
       state.noteRange = { ...action.payload };
