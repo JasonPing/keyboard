@@ -1,6 +1,5 @@
-import React, { Fragment, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { InstrumentAudio } from "./InstrumentAudio.js";
 import { Piano } from "./Piano";
 import Soundfont from "soundfont-player";
 import { keyboardMap } from "./utils/getKeyboardMap";
@@ -22,9 +21,7 @@ const Instrument = ({ instrumentName, notes }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setTimeout(() => {
-      loadInstrument(instrumentName);
-    }, 3000);
+    loadInstrument(instrumentName);
   }, []);
 
   useEffect(() => {
@@ -89,9 +86,9 @@ const Instrument = ({ instrumentName, notes }) => {
 
   //rendering piano keys
   return (
-    <Fragment>
+    <>
       {keyboardState.isLoading ? (
-        <div>loading...</div>
+        <div>loading piano...</div>
       ) : (
         <Piano
           onPlayNoteStart={playNote}
@@ -99,7 +96,7 @@ const Instrument = ({ instrumentName, notes }) => {
           notes={notes}
         />
       )}
-    </Fragment>
+    </>
   );
 };
 
