@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Piano } from "./Piano";
 import Soundfont from "soundfont-player";
 import { keyboardMap } from "./utils/getKeyboardMap";
+import { KeyboardRangeSelector } from "./KeyboardRangeSelector";
 
 import {
   loadInstrumentStart,
@@ -84,17 +85,23 @@ const Instrument = ({ instrumentName, notes }) => {
     });
   };
 
+  const minKey = 1;
+  const maxKey = 106;
+
   //rendering piano keys
   return (
     <>
       {keyboardState.isLoading ? (
         <div>loading piano...</div>
       ) : (
-        <Piano
-          onPlayNoteStart={playNote}
-          onPlayNoteEnd={stopNote}
-          notes={notes}
-        />
+        <>
+          <Piano
+            onPlayNoteStart={playNote}
+            onPlayNoteEnd={stopNote}
+            notes={notes}
+          />
+          <KeyboardRangeSelector min={minKey} max={maxKey} />
+        </>
       )}
     </>
   );

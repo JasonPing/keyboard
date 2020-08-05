@@ -40,6 +40,7 @@ const Piano = ({ onPlayNoteStart, onPlayNoteEnd, notes }) => {
     startPlayingNote,
     stopPlayingNote,
     keyboardShortcut,
+    index,
   }) => {
     const KeyComponent = isAccidentalNote ? accidentalKey : naturalKey;
 
@@ -62,10 +63,10 @@ const Piano = ({ onPlayNoteStart, onPlayNoteEnd, notes }) => {
 
   return (
     <div className="piano-container">
-      <Fragment>
-        {notes.map((note) => {
+      <>
+        {notes.map((note, index) => {
           return (
-            <Fragment key={note}>
+            <Fragment key={index}>
               {renderPianoKey({
                 note,
                 isAccidentalNote: isAccidentalNote(note),
@@ -76,11 +77,12 @@ const Piano = ({ onPlayNoteStart, onPlayNoteEnd, notes }) => {
                   keyboardMap,
                   note
                 ),
+                key: index,
               })}
             </Fragment>
           );
         })}
-      </Fragment>
+      </>
     </div>
   );
 };

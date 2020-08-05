@@ -6,7 +6,6 @@ export const keyboardSlice = createSlice({
     audioContext: new (window.AudioContext || window.webkitAudioContext)(),
     soundfontHostname: "https://d1pzp51pvbm36p.cloudfront.net",
     soundfont: "FluidR3_GM",
-    instrumentName: "acoustic_grand_piano",
     format: "mp3",
     instrument: {},
     notesPlaying: {},

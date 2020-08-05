@@ -6,7 +6,7 @@ import "./canvas.css";
 
 const Canvas = () => {
   const gridRef = useRef();
-  const notes = useSelector((state) => {
+  const noteRange = useSelector((state) => {
     return state.keyboard.noteRange;
   });
 
@@ -23,7 +23,7 @@ const Canvas = () => {
         <div>loading</div>
       ) : (
         <>
-          <Grid first={notes.first} last={notes.last} ref={gridRef} />
+          <Grid first={noteRange.first} last={noteRange.last} ref={gridRef} />
           <Notes midi={midi} ref={gridRef} />
         </>
       )}

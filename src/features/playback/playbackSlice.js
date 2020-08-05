@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Midi } from "@tonejs/midi";
-import { json } from "../playback/music";
+import MusicMidi from "../../midi/dontStart.mid";
 
 export const midiSlice = createSlice({
   name: "midi",
@@ -23,13 +23,12 @@ export const { updateMidi } = midiSlice.actions;
 // will call the thunk with the `dispatch` function as the first argument. Async
 // code can then be executed and other actions can be dispatched
 export const importMidi = () => async (dispatch) => {
-  // const midi = await Midi.fromUrl("../../midi/bach_846.mid");
+  const json = await Midi.fromUrl(MusicMidi);
   // const name = midi.name;
 
-  const midi = json.tracks[2];
-  setTimeout(() => {
-    dispatch(updateMidi(midi));
-  }, 3000);
+  const midi = json.tracks[3];
+  dispatch(updateMidi(midi));
+  return midi;
 };
 
 export default midiSlice.reducer;
