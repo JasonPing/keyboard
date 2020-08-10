@@ -59,14 +59,17 @@ const Notes = React.forwardRef((props, ref) => {
   const notes = props.midi.notes;
   const gridRef = ref;
 
-  // only render notes in viewport
-  let notesFilter = notes.filter((n) => {
-    let up = (currentTime + 5000) / 1000;
-    let down = (currentTime - 500) / 1000;
-    if (n.time < up && n.time > down) {
-      return n;
-    }
-  });
+  let notesFilter = [];
+  if (notes !== undefined) {
+    // only render notes in viewport
+    notesFilter = notes.filter((n) => {
+      let up = (currentTime + 5000) / 1000;
+      let down = (currentTime - 500) / 1000;
+      if (n.time < up && n.time > down) {
+        return n;
+      }
+    });
+  }
 
   return (
     <div className="">
