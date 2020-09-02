@@ -36,6 +36,7 @@ export const {
 // will call the thunk with the `dispatch` function as the first argument. Async
 // code can then be executed and other actions can be dispatched
 export const loadMidi = () => async (dispatch) => {
+  dispatch(loadMidiStart());
   let midi = {};
   const json = await Midi.fromUrl(MusicMidi).catch((e) => {
     dispatch(loadMidiFailure());

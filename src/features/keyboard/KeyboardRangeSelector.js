@@ -9,6 +9,9 @@ const sliderStyle = {
   width: "100%",
 };
 
+const minKey = 1;
+const maxKey = 106;
+
 const KeyboardRangeSelector = (props) => {
   const dispatch = useDispatch();
 
@@ -24,13 +27,13 @@ const KeyboardRangeSelector = (props) => {
     dispatch(updateNoteRange(noteRange));
   };
 
-  let domain = [props.min, props.max];
+  let domain = [minKey, maxKey];
   let noteRange = useSelector((state) => state.keyboard.noteRange);
   let values = [noteRange.first, noteRange.last];
   const [indication, setIndication] = useState(values);
 
   return (
-    <div style={{ height: 150, width: "80%", margin: "0 auto" }}>
+    <div style={{ "margin-top": "100px", width: "80%", margin: "0 auto" }}>
       <div>from {indication[0]}</div>
       <div>to {indication[1]}</div>
 
